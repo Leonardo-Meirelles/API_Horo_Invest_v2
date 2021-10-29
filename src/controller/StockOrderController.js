@@ -8,7 +8,7 @@ module.exports = {
         const { authorization } = req.headers;
 
         const token = authorization.split(' ')[1];
-        const { id } = jwt.decode(token);
+        const { id: user_id } = jwt.decode(token);
 
         try {
             const stocksList = await StockOrders.findAll({
@@ -89,7 +89,6 @@ module.exports = {
 
         const token = authorization.split(' ')[1];
         const {
-            id: user_id,
             user_type
         } = jwt.decode(token);
 
@@ -104,12 +103,12 @@ module.exports = {
                 where: {
                     id: id,
                 }
-            });
+            })
             order.destroy();
-            res.status(200).json('order excluded')
+            res.status(200).json('Order excluded')
 
         } catch (error) {
-            throw error
+
             res.status(400).json('Order could not be excluded')
         }
     }

@@ -15,7 +15,8 @@ module.exports = {
       },
       crypto_name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       status: {
         type: Sequelize.BOOLEAN,
