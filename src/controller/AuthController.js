@@ -49,7 +49,7 @@ module.exports = {
         payload.user_type = 2;
         payload.status = true;
         const passwordHash = await generateHash(payload.password);
-
+        
         try {
 
             await User.create({ ...payload, password: passwordHash })
@@ -58,7 +58,7 @@ module.exports = {
                 .status(201)
                 .json('User registered')
         } catch (error) {
-
+            console.log(error);
             return res
                 .status(400)
                 .json('Register failed')
