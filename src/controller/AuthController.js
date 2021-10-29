@@ -45,15 +45,23 @@ module.exports = {
     async register(req, res) {
 
         const payload = req.body;
-        console.log(req.body);
+
         payload.user_type = 2;
         payload.status = true;
+        const { email } = payload
         const passwordHash = await generateHash(payload.password);
+
+        const repeatedEmail = await User.findOne({
+            where: { email: email }
+        })
+
+        if (repeatedEmail) {
+            res.status(400).json('Email already registered')
+        }
 
         try {
 
             await User.create({ ...payload, password: passwordHash })
-            console.log('chegou aqui');
             return res
                 .status(201)
                 .json('User registered')

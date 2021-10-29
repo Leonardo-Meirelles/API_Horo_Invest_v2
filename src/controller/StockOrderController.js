@@ -7,15 +7,14 @@ module.exports = {
         const { authorization } = req.headers;
 
         const token = authorization.split(' ')[1];
-        const { id } = jwt.decode(token);
+        const { id: user_id } = jwt.decode(token);
 
         try {
             const stocksList = await StockOrders.findAll({
                 where: {
                     user_id: id
                 }
-            }
-            );
+            });
 
             res.status(200).json(stocksList)
 
