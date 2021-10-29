@@ -34,6 +34,14 @@ module.exports = {
     async store(req, res) {
         const data = req.body;
 
+        const repeatedCrypto = await Crypto.findOne({
+            where: { crypto_name: data.crypto_name }
+        })
+
+        if (repeatedCrypto) {
+            res.status(400).json('Crypto already registered')
+        }
+
         try {
             await Crypto.create(data)
             return res

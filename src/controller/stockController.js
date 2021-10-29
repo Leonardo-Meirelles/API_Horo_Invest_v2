@@ -25,6 +25,13 @@ module.exports = {
 
     async store(req, res) {
         const data = req.body;
+        const repeatedStock = await Stock.findOne({
+            where: { stock_name: data.stock_name }
+        })
+
+        if (repeatedStock) {
+            res.status(400).json('Stock already registered')
+        }
 
         try {
             await Stock.create(data)
