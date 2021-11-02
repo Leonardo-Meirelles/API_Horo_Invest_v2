@@ -13,10 +13,7 @@ exports.cryptoSchema = validateDto([
 ]);
 
 exports.cryptoOrderSchema = validateDto([
-    body('crypto_quantity')
-        .notEmpty()
-        .withMessage('Insert quantity'),
-    body('crypto_price')
-        .notEmpty()
-        .withMessage('Insert price'),
+    body()
+        .isArray()
+        .withMessage('Insert order data')
 ]);

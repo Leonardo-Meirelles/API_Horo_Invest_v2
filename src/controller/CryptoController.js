@@ -27,7 +27,7 @@ module.exports = {
 
         } catch (error) {
 
-            return res.status(200).json(returnAllCryptos)
+            res.status(400).json('No orders found')
         }
     },
 

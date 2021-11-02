@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const StockOrders = require('../database/models/stockOrders');
+const Stock = require('../database/models/stock');
 
 module.exports = {
 
@@ -16,7 +17,21 @@ module.exports = {
                 }
             });
 
-            res.status(200).json(stocksList)
+            const result = await Promise.all(stocksList.map(async stock => {
+                const findStock = await Stock.findOne({
+                    where: {
+                        id: stock.stock_id
+                    }
+                })
+                const finalStockObj = {
+                    ...stock.dataValues,
+                    stock_name: findStock.dataValues.stock_name
+                }
+
+                return finalStockObj
+            }));
+
+            res.status(200).json(result)
 
         } catch (error) {
             res.status(400).json('No orders found')
@@ -41,19 +56,20 @@ module.exports = {
                 .json('Orders may only be sent by users')
         }
 
-        const {
-            stock_quantity,
-            stock_price
-        } = req.body;
+        const orderData = req.body;
 
         try {
 
-            await StockOrders.create({ 
-                user_id,
-                stock_id: Number(stock_id),
-                stock_quantity: Number(stock_quantity),
-                stock_price: Number(stock_price),
-            });
+            const orderDataMap = await Promise.all(orderData.map(async item => {
+
+                const order = await StockOrders.create({
+                    user_id,
+                    stock_id: Number(stock_id),
+                    stock_quantity: Number(item.orderQuantity),
+                    stock_price: Number(item.orderPrice),
+                });
+            }))
+
 
             return res
                 .status(201)
@@ -62,7 +78,7 @@ module.exports = {
         } catch (error) {
             return res
                 .status(400)
-                .json('Order failed')
+                .json('Order failed$$$$$$$$$')
         }
     },
 
