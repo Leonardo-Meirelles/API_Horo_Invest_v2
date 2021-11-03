@@ -12,6 +12,7 @@ module.exports = {
 
             const stockDataObject = await stocksApi.getStocksApi(stock_name);
 
+            
             return {
                 id,
                 stockName: stock_name,
