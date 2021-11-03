@@ -8,15 +8,16 @@ module.exports = {
         const { authorization } = req.headers;
 
         const token = authorization.split(' ')[1];
-        const { id: user_id } = jwt.decode(token);
-
+        const { id } = jwt.decode(token);
+        
         try {
+            
             const stocksList = await StockOrders.findAll({
                 where: {
                     user_id: id
                 }
             });
-
+             
             const result = await Promise.all(stocksList.map(async stock => {
                 const findStock = await Stock.findOne({
                     where: {
@@ -34,6 +35,7 @@ module.exports = {
             res.status(200).json(result)
 
         } catch (error) {
+
             res.status(400).json('No orders found')
         }
     },
@@ -78,7 +80,7 @@ module.exports = {
         } catch (error) {
             return res
                 .status(400)
-                .json('Order failed$$$$$$$$$')
+                .json('Order failed')
         }
     },
 

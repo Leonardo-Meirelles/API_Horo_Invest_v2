@@ -85,7 +85,7 @@ module.exports = {
     async destroyOrder(req, res) {
 
             const { id } = req.params;
-            console.log('🚀 ~ id', id)
+            
             const { authorization } = req.headers;
 
             const token = authorization.split(' ')[1];
