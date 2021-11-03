@@ -37,9 +37,9 @@ This project is of our own, and we made it during the Infnet Fullsatck (MERN) Bo
 
 ![Postgres](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
-<img alt='Sequelize' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sequelize/sequelize-original-wordmark.svg" width='100' height='45' />
+<img alt='Sequelize' src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sequelize/sequelize-original-wordmark.svg" width='100' height='80' />
 
-<img alt='JWT' src="http://jwt.io/img/logo-asset.svg" width='100' height='45' />
+<img alt='JWT' src="http://jwt.io/img/logo-asset.svg" width='100' height='40' />
 
 Bcrypt and Express-Validator (I didn't found a badge, sorry)
 
